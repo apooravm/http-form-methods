@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <style>
+        body {
+            font-family: monospace;
+            font-size: 200%;
+        }
+        .method-divs {
+            /* margin outter spacing, padding inner spacing */
+            /* margin: 5%; */
+            /* max-width: 50%; */
+            padding-bottom: 1%;
+            padding-top: 5%;
+            padding-inline: 20%;
+            
+            border: 0px;
+            border-bottom: 2px solid;
+        }
+        button {
+            font-family: monospace;
+            /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+            font-size: 100%;
+            padding-inline: 20%;
+            padding-block: 2%;
+            background-color: rgba(202, 226, 241, 0.637);
+            border: 0px;
+            width: 50%;
+        }
+        input {
+            font-family: monospace;
+            font-size: 80%;
+            padding: 0.9%;
+            padding-top: 3%;
+            width: 40%;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-style: dashed;
+        }
+        input:hover {
+            background-color: mistyrose;
+            /* font-weight: 600; */
+        }
+        input:hover::placeholder {
+            color: black;
+        }
+        input:focus {
+            outline-width: 0;
+            /* background-color: rgba(78, 78, 78, 0.171); */
+        }
+        button:hover {
+            background-color: rgb(46, 66, 97);
+            color: gainsboro;
+        }
+        .input-div {
+            display: flexbox;
+        }
+        .but-align {
+            /* text-align: center; */
+            margin-top: 5%;
+        }
+        #get-content {
+            font-size: 70%;
+        }
+    </style>
+</head>
+<body>
+    <div class="method-divs" id="get-div">
+        <label>Get Method</label>
+        <div class="but-align">
+            <button onclick="getUsers()">Get</button>
+        </div>
+        <br>
+        <div id="get-content">
+
+        </div>
+    </div>
+
+    <div class="method-divs" id="post-div">
+        <label>Post Method</label>
+
+        <div class="input-div">
+            <input id="postName" type="text" spellcheck="false" placeholder="name">
+            <br>
+            <input id="postAge" type="text" spellcheck="false" placeholder="age">
+            <br>
+            <input id="postEmail" type="text" spellcheck="false" placeholder="email">
+            <br>
+            <input id="postPassword" type="text" spellcheck="false" placeholder="password">
+            <br>
+            <div class="but-align">
+                <button onclick="postUser()">Post</button>
+            </div>
+        </div>
+        
+    </div>
+    <div class="method-divs" id="put-div">
+        <label>Put Method</label>
+
+        <div class="input-div">
+            <input id="putIndex" type="number" spellcheck="false" placeholder="index number">
+            <br>
+            <input id="putName" type="text" spellcheck="false" placeholder="name">
+            <br>
+            <input id="putAge" type="text" spellcheck="false" placeholder="age">
+            <br>
+            <input id="putEmail" type="text" spellcheck="false" placeholder="email">
+            <br>
+            <input id="putPassword" type="text" spellcheck="false" placeholder="password">
+            <br>
+
+            <div class="but-align">
+                <button onclick="putUser()">Put</button>
+            </div>
+        </div>
+    
+    </div>
+
+    <div class="method-divs" id="delete-div">
+        <label>Delete Method</label>
+        <div class="input-div">
+            <input id="deleteIndex" type="number" spellcheck="false" placeholder="index number">
+            <div class="but-align">
+                <button onclick="deleteUser()">Delete</button>
+            </div>
+        </div>
+    </div>
+</body>
+    <script>
+        async function getUsers() {
+            // document.getElementById("get-content").innerText = "";
+            let userStr = "";
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            fetch('/api/getUser', options)
+                .then(res => res.json())
+                .then(allUsers => {
+                    let itr = 0;
+                    for (const user of allUsers) {
+                        userStr += `${itr} <b>name:</b> <i>${user.name}</i> <b>age:</b> ${user.age} <b>email:</b> ${user.email} <b>password:</b> ${user.password} <br><br>`
+                        itr += 1;
+                    }
+                    document.getElementById("get-content").innerHTML = userStr;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        async function postUser() {
+            const newUser = {
+                "name": document.getElementById("postName").value,
+                "age": document.getElementById("postAge").value,
+                "email": document.getElementById("postEmail").value,
+                "password": document.getElementById("postPassword").value,
+            }
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"user": newUser})
+            };
+
+            fetch('/api/postUser', options)
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+        
+        async function putUser() {
+            const indexVal = document.getElementById("putIndex").value;
+            const newUser = {
+                "name": document.getElementById("putName").value,
+                "age": document.getElementById("putAge").value,
+                "email": document.getElementById("putEmail").value,
+                "password": document.getElementById("putPassword").value,
+            }
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"user": newUser})
+            };
+
+            fetch(`/api/putUser/${indexVal}`, options)
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+        
+        async function deleteUser() {
+            const indexVal = document.getElementById("deleteIndex").value;
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+
+            fetch(`/api/deleteUser/${indexVal}`, options)
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+    </script>
+</html>

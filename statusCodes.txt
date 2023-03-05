@@ -1,0 +1,26 @@
+HTTP status codes are three-digit numbers that indicate the status of a 
+request-response cycle between a client and a server. 
+Here's a brief explanation of the 5 types of HTTP status codes:
+
+Informational (100-199): These status codes indicate that the 
+server has received the request and is processing it, 
+but the client should continue to wait for a final response. 
+Examples include "100 Continue" and "102 Processing".
+
+Success (200-299): These status codes indicate that the server has successfully received, 
+understood, and processed the request. Examples include "200 OK" and "204 No Content".
+
+Redirection (300-399): These status codes indicate that the requested 
+resource is not available at the expected location, and the client 
+needs to take further action to locate it. 
+Examples include "301 Moved Permanently" and "307 Temporary Redirect".
+
+Client Error (400-499): These status codes indicate that the client's request was malformed, 
+unauthorized, or otherwise invalid. Examples include "400 Bad Request" and "401 Unauthorized".
+
+Server Error (500-599): These status codes indicate that the server 
+encountered an error while processing the request, preventing it from fulfilling the request. 
+Examples include "500 Internal Server Error" and "503 Service Unavailable".
+
+Understanding HTTP status codes is important for troubleshooting and debugging web applications, 
+as they provide valuable information about the status of a request and what actions need to be taken to address any issues that arise.

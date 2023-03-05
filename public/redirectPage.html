@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Form</title>
+    <style>
+        form {
+            box-shadow: 10px 10px 0px rgb(0, 0, 0);
+            max-width: 90%;
+            width: 80%;
+            padding-block: 3%;
+            /* margin-block: 40px; */
+            border: 1px solid rgb(0, 0, 0);
+            margin: 0 auto;
+            /* font-size: 110%; */
+            font-family: monospace;
+            font-size: 120%;
+        }
+        label {
+            font-family: monospace;
+            width: 20%;
+            display: inline-block;
+            font-size: 120%;
+            /* background-color: salmon; */
+        }
+        .section-class {
+            margin: 0.9%;
+            /* background-color: silver; */
+            padding-inline: 10%;
+            padding-block: 1%;
+        }
+        .input-item {
+            font-family: monospace;
+            font-size: 100%;
+            padding: 0.9%;
+            padding-top: 3%;
+            width: 99%;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+        }
+        .input-item:focus {
+            outline-width: 0;
+            background-color: rgba(125, 240, 255, 0.171);
+        }
+        .button-class {
+            text-align: center;
+        }
+        button {
+            font-family: monospace;
+            /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+            font-size: 130%;
+            padding: 4%;
+            margin: auto;
+            width: 50%;
+            margin: 0 auto;
+            /* height: 50%; */
+            background-color: rgb(176, 220, 250);
+            border: 0px;
+        }
+        .done-message {
+            font-size: 300%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1>Users</h1> -->
+    <form action="/api/postUser" method="post" class="userform">
+        <div class="done-message">
+            User Has Been Saved! 🤯
+            <br>
+            <a href="/">Add More!</a>
+        </div>
+    </form>
+</body>
+</html>
